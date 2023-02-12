@@ -1,1 +1,1 @@
-# agp-gnn
+# Official Repository of AGP-GNN
