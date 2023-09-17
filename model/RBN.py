@@ -1,8 +1,7 @@
 import torch.nn as nn
-import math
 import torch
-import numpy as np
 import torch.nn.functional as F
+
 class RepresentativeBatchNorm2d(nn.BatchNorm2d):
     def __init__(self, num_features, eps=1e-5, momentum=0.1, affine=True,
                  track_running_stats=True):

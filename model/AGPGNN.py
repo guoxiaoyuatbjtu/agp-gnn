@@ -50,13 +50,13 @@ class STBlock(nn.Module):
         self.fusion = Fusion(d_model)
         
 
-    def forward(self, x, DTE, adj, attn_shape=None, temporal_attn=None):
+    def forward(self, x, DTE, attn_shape=None, temporal_attn=None):
 
         res = x
         x = torch.cat([x, DTE], dim=3)
         x = self.embed(x)
         temporal, temporal_attn = self.multiHeadAttention(x, x, x, attn_shape, temporal_attn)
-        spatial = self.prop(x, DTE, adj)
+        spatial = self.prop(x, DTE)
         x = self.fusion(temporal, spatial) + res
         return x, temporal_attn
 

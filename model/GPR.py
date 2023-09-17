@@ -1,9 +1,7 @@
-import math
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn.utils import weight_norm
 from model.Attn import FC
 
 
@@ -107,10 +105,8 @@ class GPRGNN(torch.nn.Module):
         self.bn = nn.BatchNorm1d(args.num_of_vertices)
         
     
-    def forward(self, x, DTE, A):
-        # do not use A
+    def forward(self, x):
         A_hat = torch.softmax(self.relu(self.E @ self.E.T), dim=-1) + torch.eye(self.nodes_num, device=x.device)
-        batch, num_timesteps = x.shape[0], x.shape[1]
         res = x
         x = self.linear1(x)
         x = self.prop(x, A_hat)
